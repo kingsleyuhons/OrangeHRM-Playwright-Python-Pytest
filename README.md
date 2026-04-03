@@ -168,6 +168,4 @@ Playwright | Python | Pytest | API Testing | CI/CD
 
 ---
 
-## If you find this useful
 
-Give this repo a star and use it as a starter template for UI automation frameworks.
