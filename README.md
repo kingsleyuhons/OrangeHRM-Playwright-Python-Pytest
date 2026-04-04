@@ -18,7 +18,7 @@ This project automates core workflows of the OrangeHRM demo application and demo
 ## Project Structure
 
 ```
-orangehrm-automation/
+Playwright-Projects-orangehrm/
 │
 ├── pages/
 │   ├── login_page.py
