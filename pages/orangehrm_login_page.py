@@ -26,7 +26,7 @@ class OrangeHRMLoginPage:
 
     def click_login(self):
         self.page.get_by_role("button", name="Login").click()
-        self.page.wait_for_url("**/dashboard/index")
+        
         
     def get_error_message (self):
         expect(self.error_message).to_contain_text("Invalid credentials")
