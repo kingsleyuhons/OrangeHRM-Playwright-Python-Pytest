@@ -1,3 +1,5 @@
+import re
+
 from playwright.sync_api import Page, expect    
 
 class OrangeHRMAdminPage:
@@ -29,8 +31,47 @@ class OrangeHRMAdminPage:
         self.search_name_option = page.get_by_text("Kg E Uh")
         self.search_button = page.get_by_role("button", name="Search")
         self.assert_searched_user = page.get_by_role("table")
+        self.employee_Id_PIM = page.get_by_role("textbox").nth(2)
+        self.search_employee_button = page.get_by_role("button", name="Search")
+        self.employee_edit_icon = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(3)
+        self.employee_license_number_input_click = page.locator("div:nth-child(2) > div > .oxd-input-group > div:nth-child(2) > .oxd-input")
+        self.employee_license_number_input_fill = page.locator(".oxd-input.oxd-input--focus")
+        self.employee_license_expiry_date_input = page.get_by_role("textbox", name="yyyy-dd-mm").first
+        self.employee_nationality_dropdown = page.get_by_text("-- Select --").first
+        self.employee_nationality_option = page.get_by_role("option", name="Nigerian")
+        self.employee_marital_status_dropdown = page.locator("//label[text()='Marital Status']/following::div[contains(@class,'oxd-select-text')][1]")
+        self.employee_marital_status_option = page.locator(f"//span[text()='Single']")
+        self.employee_date_of_birth_input = page.locator("//label[text()='Date of Birth']/following::input[1]")
+        self.employee_gender_radio_button = page.get_by_text("Male", exact=True)
+        self.employee_details_save_button = page.get_by_role("button", name="Save").first
+        self.assert_employee_personal_detail = page.locator("div:nth-child(2) > div > .oxd-input-group > div:nth-child(2) > .oxd-input")
+        self.employee_blood_type_dropdown = page.get_by_text("-- Select --")
+        self.employee_blood_type_option = page.get_by_role("option", name="A+")
+        self.employee_blood_type_save_button = page.locator("form").filter(has_text="Blood TypeA+Test_Field Save").get_by_role("button")
+        self.employee_contact_details_link = page.get_by_role("link", name="Contact Details")
+        self.employee_address_street1_input = page.get_by_role("textbox").nth(1)
+        self.employee_address_city_input = page.get_by_role("textbox").nth(3)
+        self.employee_address_state_input = page.get_by_role("textbox").nth(4)
+        self.employee_address_zipcode_input = page.get_by_role("textbox").nth(5)
+        self.employee_address_country_dropdown = page.locator("div").filter(has_text=re.compile(r"^-- Select --$")).nth(2)
+        self.employee_address_country_option = page.get_by_role("option", name="Nigeria")
+        self.employee_telephone_home_input1_click = page.locator("div:nth-child(6) > .oxd-grid-3 > div > .oxd-input-group > div:nth-child(2) > .oxd-input").first
+        self.employee_telephone_home_input2_fill = page.locator(".oxd-input.oxd-input--focus")
+        self.employee_email_work_email_input1_click = page.locator("div:nth-child(9) > .oxd-grid-3 > div > .oxd-input-group > div:nth-child(2) > .oxd-input").first
+        self.employee_email_work_email_input2_fill = page.locator(".oxd-input.oxd-input--focus")
+        self.employee_contact_details_save_button = page.get_by_role("button", name="Save")
+        self.assert_employee_contact_detail = page.get_by_role("textbox").nth(3)
+        self.employee_emergency_contacts_link = page.get_by_role("link", name="Emergency Contacts")
+        self.employee_add_emergency_contact_button = page.get_by_role("button", name=" Add").first
+        self.employee_emergency_contact_name_input = page.get_by_role("textbox").nth(1)
+        self.employee_emergency_contact_relationship_input = page.get_by_role("textbox").nth(2)
+        self.employee_emergency_contact_phone_input = page.get_by_role("textbox").nth(3)
+        self.employee_emergency_contact_save_button = page.get_by_role("button", name="Save")
+        self.assert_added_emergency_contact = page.locator("#app")
+        self.delete_employee_from_list_button = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(4)
+        self.confirm_delete_employee_button = page.get_by_role("button", name=" Yes, Delete")
+        self.assert_employee_deleted = page.locator("#app")
         
-    
     def add_employee(self, first_name: str, middle_name: str, last_name: str, employee_id: str):
         self.pim_link.click()
         self.add_employee_button.click()
@@ -63,5 +104,56 @@ class OrangeHRMAdminPage:
         self.search_name.fill("Kg")
         self.search_name_option.click()
         self.search_button.click()
+        self.page.wait_for_timeout(3000)
         expect(self.assert_searched_user).to_contain_text("Kinguh")
     
+    def update_employee_personal_details(self):
+        self.pim_link.click()
+        self.employee_Id_PIM.fill("9909")
+        self.search_employee_button.click()
+        self.page.wait_for_timeout(3000)
+        self.employee_edit_icon.click()
+        self.employee_license_number_input_click.click()
+        self.employee_license_number_input_fill.fill("456556645")
+        self.employee_license_expiry_date_input.fill("2023-10-11")
+        self.employee_nationality_dropdown.click()
+        self.employee_nationality_option.click()
+        self.employee_marital_status_dropdown.click()
+        self.employee_marital_status_option.click()
+        self.employee_date_of_birth_input.fill("1987-10-11")
+        self.employee_gender_radio_button.click()
+        self.employee_details_save_button.click()
+        self.page.wait_for_timeout(3000)
+        #expect(self.assert_employee_personal_detail).to_have_value("456556645")
+        self.employee_blood_type_dropdown.click()
+        self.employee_blood_type_option.click() 
+        self.employee_blood_type_save_button.click()
+        self.page.wait_for_timeout(3000)
+    
+        
+    def update_employee_contact_details(self):
+        self.employee_contact_details_link.click()
+        self.employee_address_street1_input.fill("15 Ubiaja road")
+        self.employee_address_city_input.fill("Uromi")
+        self.employee_address_state_input.fill("Edo")
+        self.employee_address_zipcode_input.fill("31115")
+        self.employee_address_country_dropdown.click()
+        self.employee_address_country_option.click()
+        self.employee_telephone_home_input1_click.click()
+        self.employee_telephone_home_input2_fill.fill("+564778984")
+        self.employee_email_work_email_input1_click.click()
+        self.employee_email_work_email_input2_fill.fill("kinguh@orangehrm.com")
+        self.employee_contact_details_save_button.click()
+        self.page.wait_for_timeout(3000)
+       # expect(self.assert_employee_contact_detail).to_have_value("Uromi")
+        
+        
+    def delete_employee_from_list(self):
+        self.pim_link.click()
+        self.employee_Id_PIM.fill("9909")
+        self.search_employee_button.click()
+        self.page.wait_for_timeout(3000)
+        self.delete_employee_from_list_button.click()
+        self.confirm_delete_employee_button.click()
+        self.page.wait_for_timeout(3000)
+        expect(self.assert_employee_deleted).to_contain_text("No Records Found")

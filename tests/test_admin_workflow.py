@@ -13,6 +13,6 @@ def test_add_employee_and_create_user(page: Page) -> None:
     admin_page.add_employee("Kg", "E", "Uh", "9909")
     admin_page.add_employee_as_user_by_admin()
     admin_page.confirm_added_user()
-    
-    
-  
+    admin_page.update_employee_personal_details()
+    admin_page.update_employee_contact_details()
+    admin_page.delete_employee_from_list() 
