@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/kingsleyuhons/OpenCart_Checkout_Automation_RobotFramework_Python.git'
+                git 'https://github.com/kingsleyuhons/OrangeHRM-Playwright-Python-Pytest.git'
             }
         }
 
