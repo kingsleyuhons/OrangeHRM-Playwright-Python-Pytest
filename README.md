@@ -167,5 +167,5 @@ QA Automation Engineer
 Playwright | Python | Pytest | API Testing | CI/CD
 
 ---
-
+-----
 
