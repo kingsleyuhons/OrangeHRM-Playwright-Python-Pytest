@@ -2,6 +2,14 @@ pipeline {
     agent any
 
     stages {
+
+        stage('Check Python') {
+            steps {
+                bat 'python --version'
+                bat 'pip --version'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 bat 'pip install -r requirements.txt'
@@ -9,7 +17,7 @@ pipeline {
             }
         }
 
-        stage('Run tests') {
+        stage('Run Tests') {
             steps {
                 bat 'pytest -v'
             }
