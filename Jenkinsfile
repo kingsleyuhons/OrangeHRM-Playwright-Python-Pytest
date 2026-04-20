@@ -3,23 +3,17 @@ pipeline {
 
     stages {
 
-        stage('Check Python') {
+        stage('Setup Environment') {
             steps {
-                bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" --version'
-            
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-              bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install -r requirements.txt'
-                bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m playwright install'
+                bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv venv'
+                bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
+                bat 'venv\\Scripts\\activate && playwright install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest -v'
+                bat 'venv\\Scripts\\activate && pytest -v'
             }
         }
     }
