@@ -112,7 +112,7 @@ pytest tests/test_login.py
 
 ---
 
-## Example Test 1
+## Example Test 1:
 
 ```
 def test_valid_login(page: Page) -> None:
@@ -125,7 +125,7 @@ def test_valid_login(page: Page) -> None:
     login_page.click_login()
     dashboard_page.is_dashboard_visible()
 ```
-## Example Test 2 (Advanced)
+## Example Test 2 (Advanced):
 
 ```
 def test_add_employee_and_create_user(page: Page) -> None:
