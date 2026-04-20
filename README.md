@@ -112,7 +112,7 @@ pytest tests/test_login.py
 
 ---
 
-## Example Test 1:
+## Example Test 1
 
 ```
 def test_valid_login(page: Page) -> None:
