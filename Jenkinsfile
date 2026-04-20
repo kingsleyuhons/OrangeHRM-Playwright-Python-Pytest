@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/kingsleyuhons/OrangeHRM-Playwright-Python-Pytest.git'
+                git branch: 'main', url: 'https://github.com/kingsleyuhons/OrangeHRM-Playwright-Python-Pytest.git'
             }
         }
 
