@@ -30,7 +30,7 @@ post {
 
             // Parse test results
             def output = bat(
-                script: 'venv\\Scripts\\activate && python parse_results.py',
+                script: 'venv\\Scripts\\activate && python tests\\parse_results.py',
                 returnStdout: true
             ).trim()
 
