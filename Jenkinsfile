@@ -18,11 +18,6 @@ pipeline {
         }
     }
 post {
-        slackSend(
-    tokenCredentialId: 'Slack-token',
-    channel: '#all-personal-projects',
-    message: 'Test message from Jenkins'
-)
 
     success {
         slackSend(
