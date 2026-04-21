@@ -23,7 +23,7 @@ post {
     channel: '#all-personal-projects',
     message: 'Test message from Jenkins'
 )
-    }
+
     success {
         slackSend(
             tokenCredentialId: 'Slack-token',
