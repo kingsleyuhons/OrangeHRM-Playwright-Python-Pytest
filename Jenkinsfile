@@ -19,30 +19,41 @@ pipeline {
     }
 
 post {
-    success {
+    always {
         script {
+
+            // Parse test results
+            def output = bat(
+                script: 'venv\\Scripts\\activate && python parse_results.py',
+                returnStdout: true
+            ).trim()
+
+            def total = (output =~ /TOTAL=(\d+)/)[0][1]
+            def passed = (output =~ /PASSED=(\d+)/)[0][1]
+            def failed = (output =~ /FAILED=(\d+)/)[0][1]
+
+            def reportUrl = "${env.BUILD_URL}artifact/report.html"
+
             withCredentials([string(credentialsId: 'slack-token', variable: 'SLACK_TOKEN')]) {
-                bat '''
+
+                bat """
                 curl -X POST -H "Authorization: Bearer %SLACK_TOKEN%" ^
                 -H "Content-type: application/json" ^
-                --data "{\\"channel\\":\\"#all-personal-projects\\",\\"text\\":\\"✅ SUCCESS: %JOB_NAME% #%BUILD_NUMBER%\\n%BUILD_URL%\\"}" ^
+                --data "{\\"channel\\":\\"#all-personal-projects\\",
+                \\"text\\":\\"📊 *Test Results*\\n
+                Total: ${total}\\n
+                Passed: ${passed}\\n
+                Failed: ${failed}\\n
+                🔗 Report: ${reportUrl}\\"}" ^
                 https://slack.com/api/chat.postMessage
-                '''
+                """
             }
         }
     }
-
-    failure {
-        script {
-            withCredentials([string(credentialsId: 'slack-token', variable: 'SLACK_TOKEN')]) {
-                bat '''
-                curl -X POST -H "Authorization: Bearer %SLACK_TOKEN%" ^
-                -H "Content-type: application/json" ^
-                --data "{\\"channel\\":\\"#all-personal-projects\\",\\"text\\":\\"❌ FAILED: %JOB_NAME% #%BUILD_NUMBER%\\n%BUILD_URL%\\"}" ^
-                https://slack.com/api/chat.postMessage
-                '''
-            }
-        }
+}
+    post {
+    always {
+        archiveArtifacts artifacts: 'report.html', fingerprint: true
     }
 }
 }
