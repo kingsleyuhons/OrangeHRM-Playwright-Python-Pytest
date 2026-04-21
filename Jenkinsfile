@@ -18,13 +18,10 @@ pipeline {
         }
     }
 
-post {
-    always {
-        slackSend(
-            tokenCredentialId: 'Slack-token',
-            channel: '#all-personal-projects',
-            message: 'Jenkins test message'
-        )
-    }
-}
+bat '''
+curl -X POST -H "Authorization: Bearer xoxb-10958129923474-10951760720947-Mnhys82R0DbG2mKwTuTJ6WwM" ^
+-H "Content-type: application/json" ^
+--data "{\\"channel\\":\\"#all-personal-projects\\",\\"text\\":\\"Test from Jenkins\\"}" ^
+https://slack.com/api/chat.postMessage
+'''
 }
