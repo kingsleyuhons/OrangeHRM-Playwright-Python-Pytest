@@ -8,7 +8,6 @@ pipeline {
                 bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv venv'
                 bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
                 bat 'venv\\Scripts\\activate && playwright install'
-                bat 'venv\\Scripts\\activate && pytest -v -n 2 --html=report.html --self-contained-html --junitxml=results.xml'
                 bat """
                 curl -F file=@screenshots/test_name.png ^
                 -F "channels=#all-personal-projects" ^
@@ -20,7 +19,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'venv\\Scripts\\activate && pytest -v -n auto --html=report.html --self-contained-html'
+                bat 'venv\\Scripts\\activate && pytest -v -n auto --html=report.html --self-contained-html --junitxml=results.xml'
             }
         }
     }
