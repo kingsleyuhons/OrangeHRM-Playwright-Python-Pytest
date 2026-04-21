@@ -17,16 +17,20 @@ pipeline {
             }
         }
     }
- post {
-        always {
-            publishHTML([
-                reportDir: '.',
-                reportFiles: 'report.html',
-                reportName: 'Pytest Report',
-                keepAll: true,
-                alwaysLinkToLastBuild: true,
-                allowMissing: true
-            ])
+  post {
+        success {
+            slackSend(
+                webhookUrl: 'https://hooks.slack.com/services/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',
+                color: 'good',
+                message: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n${env.BUILD_URL}"
+            )
+        }
+        failure {
+            slackSend(
+                webhookUrl: 'YOUR_WEBHOOK_URL',
+                color: 'danger',
+                message: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n${env.BUILD_URL}"
+            )
         }
     }
 }
