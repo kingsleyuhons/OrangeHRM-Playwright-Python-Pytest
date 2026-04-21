@@ -55,11 +55,10 @@ post {
                 """
             }
         }
-    }
-}
-    post {
-    always {
+        always {
         archiveArtifacts artifacts: 'report.html', fingerprint: true
+    } 
     }
+   
 }
 }
