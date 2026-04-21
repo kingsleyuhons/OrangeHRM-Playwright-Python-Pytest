@@ -17,23 +17,13 @@ pipeline {
             }
         }
     }
-post {
 
-    success {
+post {
+    always {
         slackSend(
             tokenCredentialId: 'Slack-token',
             channel: '#all-personal-projects',
-            color: 'good',
-            message: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n${env.BUILD_URL}"
+            message: 'Jenkins test message'
         )
     }
-    failure {
-        slackSend(
-            tokenCredentialId: 'Slack-token',
-            channel: '#all-personal-projects',
-            color: 'danger',
-            message: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n${env.BUILD_URL}"
-        )
-    }
-}
 }
