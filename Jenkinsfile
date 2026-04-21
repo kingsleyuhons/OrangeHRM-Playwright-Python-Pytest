@@ -17,18 +17,22 @@ pipeline {
             }
         }
     }
-  post {
-        success {
-            slackSend(
-                color: 'good',
-                message: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n${env.BUILD_URL}"
-            )
-        }
-        failure {
-            slackSend(
-                color: 'danger',
-                message: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n${env.BUILD_URL}"
-            )
-        }
+post {
+    success {
+        slackSend(
+            tokenCredentialId: 'Slack-token',
+            channel: '#all-personal-projects',
+            color: 'good',
+            message: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n${env.BUILD_URL}"
+        )
     }
+    failure {
+        slackSend(
+            tokenCredentialId: 'Slack-token',
+            channel: '#all-personal-projects',
+            color: 'danger',
+            message: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n${env.BUILD_URL}"
+        )
+    }
+}
 }
