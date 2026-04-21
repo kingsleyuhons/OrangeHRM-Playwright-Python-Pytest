@@ -8,6 +8,12 @@ pipeline {
                 bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv venv'
                 bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
                 bat 'venv\\Scripts\\activate && playwright install'
+                bat """
+                curl -F file=@screenshots/test_name.png ^
+                -F "channels=#all-personal-projects" ^
+                -H "Authorization: Bearer %SLACK_TOKEN%" ^
+                https://slack.com/api/files.upload
+                """
             }
         }
 
