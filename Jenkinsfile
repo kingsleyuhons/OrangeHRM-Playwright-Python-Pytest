@@ -18,6 +18,13 @@ pipeline {
         }
     }
 post {
+    Test {
+        slackSend(
+    tokenCredentialId: 'Slack-token',
+    channel: '#all-personal-projects',
+    message: 'Test message from Jenkins'
+)
+    }
     success {
         slackSend(
             tokenCredentialId: 'Slack-token',
@@ -34,4 +41,5 @@ post {
             message: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}\n${env.BUILD_URL}"
         )
     }
+}
 }
