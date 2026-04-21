@@ -18,7 +18,7 @@ pipeline {
         }
     }
 post {
-    Test {
+    test {
         slackSend(
     tokenCredentialId: 'Slack-token',
     channel: '#all-personal-projects',
