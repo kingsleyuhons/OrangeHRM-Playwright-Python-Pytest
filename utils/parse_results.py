@@ -1,8 +1,14 @@
 import os
 import xml.etree.ElementTree as ET
 
-base_dir = os.path.dirname(os.path.dirname(__file__))  # go up from tests/
-xml_path = os.path.join(base_dir, 'results.xml')
+xml_path = os.path.join(os.getcwd(), 'results.xml')
+
+if not os.path.exists(xml_path):
+    print("TOTAL=0")
+    print("PASSED=0")
+    print("FAILED=0")
+    print("SKIPPED=0")
+    exit(0)
 
 tree = ET.parse(xml_path)
 root = tree.getroot()
