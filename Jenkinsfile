@@ -8,6 +8,7 @@ pipeline {
                 bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv venv'
                 bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
                 bat 'venv\\Scripts\\activate && playwright install'
+                bat 'venv\\Scripts\\activate && python -m pip install --upgrade pip'
             }
         }
 
@@ -40,15 +41,10 @@ pipeline {
                 withCredentials([string(credentialsId: 'slack-token', variable: 'SLACK_TOKEN')]) {
 
                     // Send summary message
-                    bat """
+                  bat """
                     curl -X POST -H "Authorization: Bearer %SLACK_TOKEN%" ^
                     -H "Content-type: application/json" ^
-                    --data "{\\"channel\\":\\"#all-personal-projects\\",
-                    \\"text\\":\\"📊 Test Results\\n
-                    Total: ${total}\\n
-                    Passed: ${passed}\\n
-                    Failed: ${failed}\\n
-                    🔗 Report: ${reportUrl}\\"}" ^
+                    --data "{\\"channel\\":\\"#all-personal-projects\\",\\"text\\":\\"Test Results - Total: ${total}, Passed: ${passed}, Failed: ${failed}, Report: ${reportUrl}\\"}" ^
                     https://slack.com/api/chat.postMessage
                     """
 
