@@ -4,7 +4,7 @@ from pages.orangehrm_login_page import OrangeHRMLoginPage
 from pages.orangehrm_admin_page import OrangeHRMAdminPage 
 
 
-def test_add_employee_and_create_user(page: Page) -> None:
+def test_user_management(page: Page) -> None:
     login_page = OrangeHRMLoginPage(page)
     admin_page = OrangeHRMAdminPage(page)
    
