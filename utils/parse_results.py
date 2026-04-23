@@ -3,6 +3,8 @@ import xml.etree.ElementTree as ET
 
 xml_path = os.path.join(os.getcwd(), 'results.xml')
 
+print(f"Reading XML from: {xml_path}")
+
 if not os.path.exists(xml_path):
     print("TOTAL=0")
     print("PASSED=0")
