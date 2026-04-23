@@ -6,9 +6,10 @@ pipeline {
         stage('Setup Environment') {
             steps {
                 bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv venv'
+                bat 'venv\\Scripts\\activate && python -m pip install --upgrade pip'
                 bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
                 bat 'venv\\Scripts\\activate && playwright install'
-                bat 'venv\\Scripts\\activate && python -m pip install --upgrade pip'
+                
             }
         }
 
