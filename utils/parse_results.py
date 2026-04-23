@@ -1,6 +1,10 @@
+import os
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('results.xml')
+base_dir = os.path.dirname(os.path.dirname(__file__))  # go up from tests/
+xml_path = os.path.join(base_dir, 'results.xml')
+
+tree = ET.parse(xml_path)
 root = tree.getroot()
 
 total = int(root.attrib.get('tests', 0))
