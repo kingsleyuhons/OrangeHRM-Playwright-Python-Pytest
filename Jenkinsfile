@@ -1,22 +1,15 @@
 pipeline {
     agent any
 
-    environment {
-        PYTHON = "C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe"
-    }
-
     stages {
 
         stage('Setup Environment') {
             steps {
-                bat '%PYTHON% -m venv venv'
-
-                bat """
-                venv\\Scripts\\activate &&
-                python -m pip install --upgrade pip &&
-                pip install -r requirements.txt &&
-                playwright install
-                """
+                bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv venv'
+                bat 'venv\\Scripts\\activate && python -m pip install --upgrade pip'
+                bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
+                bat 'venv\\Scripts\\activate && playwright install'
+                
             }
         }
 
