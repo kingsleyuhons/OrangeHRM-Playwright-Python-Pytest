@@ -16,8 +16,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 bat """
-                venv\\Scripts\\activate &&
-                pytest tests\\ -v -n auto --html=report.html --self-contained-html --junitxml=results.xml
+                venv\\Scripts\\activate && pytest -v -n auto --html=report.html --self-contained-html --junitxml=results.xml
                 """
             }
         }
