@@ -9,6 +9,7 @@ pipeline {
                 bat 'venv\\Scripts\\activate && python -m pip install --upgrade pip'
                 bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
                 bat 'venv\\Scripts\\activate && playwright install'
+                bat 'venv\\Scripts\\activate && pip install pytest-xdist pytest-html pytest-metadata'
                 
             }
         }
