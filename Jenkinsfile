@@ -9,7 +9,7 @@ pipeline {
 
         stage('Setup Environment') {
             steps {
-                bat "\"%PYTHON%\" -m venv venv"
+                bat '%PYTHON% -m venv venv'
 
                 bat """
                 venv\\Scripts\\activate &&
