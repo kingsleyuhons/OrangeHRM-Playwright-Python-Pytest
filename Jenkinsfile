@@ -15,7 +15,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'venv\\Scripts\\activate && pytest -v -n auto --dist=loadscope --maxfail=1 ^ --html=report.html --self-contained-html ^ --junitxml=results.xml'
+                bat 'venv\\Scripts\\activate && pytest -v -n auto --dist=loadfile --maxfail=1 ^ --html=report.html --self-contained-html ^ --junitxml=results.xml'
             }
         }
         stage('Debug Files') {
