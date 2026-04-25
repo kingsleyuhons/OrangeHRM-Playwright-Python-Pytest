@@ -9,14 +9,13 @@ pipeline {
                 bat 'venv\\Scripts\\activate && python -m pip install --upgrade pip'
                 bat 'venv\\Scripts\\activate && pip install -r requirements.txt'
                 bat 'venv\\Scripts\\activate && playwright install'
-                bat 'venv\\Scripts\\activate && pip install pytest-xdist pytest-html pytest-metadata'
                 
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat 'venv\\Scripts\\activate && pytest -v -n auto pytest --junitxml=results.xml --self-contained-html  --html=report.html'
+                bat 'venv\\Scripts\\activate && pytest -v -n auto --html=report.html --self-contained-html --junitxml=results.xml'
             }
         }
         stage('Debug Files') {
@@ -43,6 +42,8 @@ pipeline {
                 def total = (output =~ /TOTAL=(\d+)/)[0][1]
                 def passed = (output =~ /PASSED=(\d+)/)[0][1]
                 def failed = (output =~ /FAILED=(\d+)/)[0][1]
+                def errors = (output =~ /ERRORS=(\d+)/)[0][1]
+                def skipped = (output =~ /SKIPPED=(\d+)/)[0][1]
 
                 def reportUrl = "${env.BUILD_URL}artifact/report.html"
 
@@ -52,7 +53,7 @@ pipeline {
                   bat """
                     curl -X POST -H "Authorization: Bearer %SLACK_TOKEN%" ^
                     -H "Content-type: application/json" ^
-                    --data "{\\"channel\\":\\"#all-personal-projects\\",\\"text\\":\\"Test Results - Total: ${total}, Passed: ${passed}, Failed: ${failed}, Report: ${reportUrl}\\"}" ^
+                    --data "{\\"channel\\":\\"#all-personal-projects\\",\\"text\\":\\"Test Results - Total: ${total}, Passed: ${passed}, Failed: ${failed}, Errors: ${errors}, Skipped: ${skipped}, Report: ${reportUrl}\\"}" ^
                     https://slack.com/api/chat.postMessage
                     """
 
@@ -72,3 +73,4 @@ pipeline {
         }
     }
 }
+    
