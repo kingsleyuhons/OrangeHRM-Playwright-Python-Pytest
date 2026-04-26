@@ -133,7 +133,6 @@ def test_add_employee_and_create_user(page: Page) -> None:
     admin_page.add_employee_as_user_by_admin()
     admin_page.confirm_added_user()
 ```
----
 
 # CI/CD with Jenkins
 
@@ -146,7 +145,6 @@ def test_add_employee_and_create_user(page: Page) -> None:
 * Slack notifications
 
 ---
----
 
 # GitHub ↔ Jenkins Integration
 
@@ -157,7 +155,6 @@ def test_add_employee_and_create_user(page: Page) -> None:
 * GitHub Integration Plugin
 
 ---
----
 **Step 2: Configure GitHub Webhook**:
 1. Go to GitHub repo **→ Settings → Webhooks**
 2. Click **Add Webhook**
@@ -165,13 +162,11 @@ def test_add_employee_and_create_user(page: Page) -> None:
 * **Payload URL:** http://<****>/github-webhook/
 * **Content type:** application/json
 * **Events:** Select Just the push event (or PR events if needed)
-
----
 ---
 **Step 3: Configure Jenkins Job**:
 * Enable: GitHub hook trigger for GITScm polling
 * Branch: */main
----
+
 ---
 
 # Result
@@ -182,8 +177,6 @@ Every **pull request merge to main** will automatically:
 * Pull latest code
 * Run tests
 * Send results to Slack
-
----
 
 ---
 
