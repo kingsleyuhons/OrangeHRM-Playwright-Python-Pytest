@@ -148,14 +148,14 @@ def test_add_employee_and_create_user(page: Page) -> None:
 
 # GitHub ↔ Jenkins Integration
 
-**Step 1: Install Required Jenkins Plugins**:
+**Step 1: Installation of Required Jenkins Plugins**:
 
 * Git Plugin
 * Pipeline Plugin
 * GitHub Integration Plugin
 
 ---
-**Step 2: Configure GitHub Webhook**:
+**Step 2: GitHub Webhook Configuration**:
 1. Go to GitHub repo **→ Settings → Webhooks**
 2. Click **Add Webhook**
 3. Set
@@ -163,7 +163,7 @@ def test_add_employee_and_create_user(page: Page) -> None:
 * **Content type:** application/json
 * **Events:** Select Just the push event (or PR events if needed)
 ---
-**Step 3: Configure Jenkins Job**:
+**Step 3: Jenkins Job Configuration**:
 * Enable: GitHub hook trigger for GITScm polling
 * Branch: */main
 
