@@ -1,7 +1,8 @@
 ## OrangeHRM UI Test Automation Framework
 
 A scalable UI test automation framework built using **Playwright**, **Python**, **Pytest**, and **Page Object Model (POM)** design pattern.
-This project automates core workflows of the OrangeHRM demo application and demonstrates best practices for maintainable test automation.
+This project automates end-to-end testing of the OrangeHRM demo application and demonstrates best practices for maintainable test automation. 
+It supports parallel execution, HTML reporting, and real-time CI feedback.
 
 ---
 
@@ -10,8 +11,8 @@ This project automates core workflows of the OrangeHRM demo application and demo
 * Python 3.x
 * Playwright
 * Pytest
-* Page Object Model (POM)
 * Git & GitHub
+* Slack API (Notifications)
 
 ---
 
@@ -63,7 +64,7 @@ Playwright-Projects-orangehrm/
 ### 1. Clone repository
 
 ```
-git clone https://github.com/<your-username>/orangehrm-playwright-pytest.git
+git clone https://github.com/kingsleyuhons/OrangeHRM-Playwright-Python-Pytest.git
 cd Orangehrm-Playwright-Python-Pytest
 ```
 
@@ -84,30 +85,24 @@ venv\Scripts\activate
 ### 3. Install dependencies
 
 ```
+pip install --upgrade pip
+pip install -r requirements.txt
 pip install pytest playwright
 playwright install
 ```
 
 ---
 
-##  Run Tests
-
-Run all tests:
+##  Run Tests Locally
 
 ```
-pytest
-```
-
-Run in headed mode:
-
-```
-pytest --headed
+pytest -v -n auto --html=report.html --self-contained-html --junitxml=results.xml
 ```
 
 Run specific test:
 
 ```
-pytest tests/test_login.py
+pytest tests/test_login.py  --html=report.html --self-contained-html --junitxml=results.xml
 ```
 
 ---
@@ -140,6 +135,58 @@ def test_add_employee_and_create_user(page: Page) -> None:
 ```
 ---
 
+# CI/CD with Jenkins
+
+**Pipeline Features**:
+
+* Auto-trigger on GitHub PR merge
+* Environment setup (venv + dependencies)
+* Parallel test execution
+* Report generation
+* Slack notifications
+
+---
+---
+
+# GitHub ↔ Jenkins Integration
+
+**Step 1: Install Required Jenkins Plugins**:
+
+* Git Plugin
+* Pipeline Plugin
+* GitHub Integration Plugin
+
+---
+---
+**Step 2: Configure GitHub Webhook**:
+1. Go to GitHub repo **→ Settings → Webhooks**
+2. Click **Add Webhook**
+3. Set
+* **Payload URL:** http://<****>/github-webhook/
+* **Content type:** application/json
+* **Events:** Select Just the push event (or PR events if needed)
+
+---
+---
+**Step 3: Configure Jenkins Job**:
+* Enable: GitHub hook trigger for GITScm polling
+* Branch: */main
+---
+---
+
+# Result
+
+Every **pull request merge to main** will automatically:
+
+* Trigger Jenkins build
+* Pull latest code
+* Run tests
+* Send results to Slack
+
+---
+
+---
+
 # Design Pattern
 
 This framework uses **Page Object Model (POM)** to:
@@ -154,7 +201,6 @@ This framework uses **Page Object Model (POM)** to:
 ## Future Improvements
 
 * Test data management
-* Parallel execution
 * GitHub Actions CI pipeline
 * Allure reporting
 * Docker support
