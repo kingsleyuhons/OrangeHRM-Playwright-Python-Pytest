@@ -207,7 +207,7 @@ Playwright | Python | Pytest | API Testing | CI/CD
 
 ---
 ## Contributions
-
+---
 Pull requests are welcome. For major changes, please open an issue first.
 ---
 
